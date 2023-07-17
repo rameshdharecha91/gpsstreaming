@@ -1,10 +1,10 @@
-package com.gpsstreaming.gpsstreaming;
+package com.gpsstreaming;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GpsstreamingApplicationTests {
+class GpsStreamingApplicationTests {
 
 	@Test
 	void contextLoads() {

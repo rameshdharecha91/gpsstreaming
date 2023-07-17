@@ -1,13 +1,13 @@
-package com.gpsstreaming.gpsstreaming;
+package com.gpsstreaming;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GpsstreamingApplication {
+public class GpsStreamingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GpsstreamingApplication.class, args);
+		SpringApplication.run(GpsStreamingApplication.class, args);
 	}
 
 }
