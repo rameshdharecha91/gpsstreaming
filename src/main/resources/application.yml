@@ -1,2 +1,24 @@
 server:
-  port: 1010
+  port: 8080
+spring:
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: gps_streaming
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+socket:
+  server:
+    port: 5000
+#Rabbit MQ configuration
+rabbitmq:
+  queue:
+    name: GPS_STREAMING_QUEUE
+  exchange:
+    name: GPS_STREAMING_EXCHANGE
+  routing:
+    key: GPS_STREAMING_EXCHANGE_KEY

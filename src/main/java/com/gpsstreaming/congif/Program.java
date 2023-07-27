@@ -67,7 +67,7 @@
 //            iCounter += 1;
 //            client = serverSocket.accept();
 //            System.out.println(">>" + " Client No : " + iCounter + " Started");
-//            HandleClient oClient = new HandleClient();
+//            ClientHandler oClient = new ClientHandler();
 //            oClient.StartClient(client, String.valueOf(iCounter));
 //        }
 //        //A client has connected to this server. Send welcome message
@@ -78,7 +78,7 @@
 //
 //
 //
-//class HandleClient
+//class ClientHandler
 //{
 //    Socket clientSocket;
 //
@@ -114,7 +114,7 @@
 //        {
 //            DataInputStream stream = new DataInputStream(clientSocket.getInputStream());
 //
-//            Protocol_18N19N22N26 oProtocol_18N19N22N26;
+//            Protocol18N19N22N26Entity oProtocol_18N19N22N26;
 //            String sOldDateTime = new String();
 //            boolean bGPSRead = false, bStatusRead = false;
 //            int iCounterStatusInfo = 0, iCounterGPSInfo = 0;
@@ -151,59 +151,59 @@
 //                    }
 //                    if ((int)(bytes[3]) == 18)
 //                    {
-//                        oProtocol_18N19N22N26 = new Protocol_18N19N22N26();
-//                        GPSinfo oGPSinfo = new GPSinfo();
+//                        oProtocol_18N19N22N26 = new Protocol18N19N22N26Entity();
+//                        GPSInfoEntity oGPSInfoEntity = new GPSInfoEntity();
 //
 //                        oProtocol_18N19N22N26.IMEINo = this.IMEINumber;
 //                        oProtocol_18N19N22N26.DateTime = Util.getDateTime(Util.ByteToStringBase10(bytes, 4, 13));
 //                        int[] oTemp = Util.getGPSinfoSatcount(bytes[10]);
-//                        oGPSinfo.NoSatellite =  String.valueOf(Integer.parseInt((String.valueOf(oTemp[1])),2));
-//                        oGPSinfo.GGpsInfo = String.valueOf(Integer.parseInt((String.valueOf(oTemp[0])),2));
-//                        oGPSinfo.Lat = Util.GetLatOrLong(bytes[11], bytes[12], bytes[13], bytes[14]);
-//                        oGPSinfo.Long = Util.GetLatOrLong(bytes[15], bytes[16], bytes[17], bytes[18]);
-//                        oGPSinfo.Speed = String.valueOf(bytes[19] & 0xff);
+//                        oGPSInfoEntity.NoSatellite =  String.valueOf(Integer.parseInt((String.valueOf(oTemp[1])),2));
+//                        oGPSInfoEntity.GGpsInfo = String.valueOf(Integer.parseInt((String.valueOf(oTemp[0])),2));
+//                        oGPSInfoEntity.Lat = Util.GetLatOrLong(bytes[11], bytes[12], bytes[13], bytes[14]);
+//                        oGPSInfoEntity.Long = Util.GetLatOrLong(bytes[15], bytes[16], bytes[17], bytes[18]);
+//                        oGPSInfoEntity.Speed = String.valueOf(bytes[19] & 0xff);
 //                        int[] iTemp = Util.CourseorStatus((bytes[20]), bytes[21]);
-//                        oGPSinfo.SouthLat = iTemp[1] == 0 ? oGPSinfo.SouthLat : oGPSinfo.NorthLat;
+//                        oGPSInfoEntity.SouthLat = iTemp[1] == 0 ? oGPSInfoEntity.SouthLat : oGPSInfoEntity.NorthLat;
 //                        if (iTemp[1] == 0)
 //                        {
-//                            oGPSinfo.SouthLat = "0";
-//                            oGPSinfo.NorthLat = "1";
+//                            oGPSInfoEntity.SouthLat = "0";
+//                            oGPSInfoEntity.NorthLat = "1";
 //                        }
 //                        else
 //                        {
-//                            oGPSinfo.SouthLat = "1";
-//                            oGPSinfo.NorthLat = "0";
+//                            oGPSInfoEntity.SouthLat = "1";
+//                            oGPSInfoEntity.NorthLat = "0";
 //                        }
 //
-//                        oGPSinfo.EastLong = iTemp[2] == 0 ? oGPSinfo.EastLong : oGPSinfo.WestLong;
+//                        oGPSInfoEntity.EastLong = iTemp[2] == 0 ? oGPSInfoEntity.EastLong : oGPSInfoEntity.WestLong;
 //                        if (iTemp[2] == 0)
 //                        {
-//                            oGPSinfo.EastLong = "0";
-//                            oGPSinfo.WestLong = "1";
+//                            oGPSInfoEntity.EastLong = "0";
+//                            oGPSInfoEntity.WestLong = "1";
 //                        }
 //                        else
 //                        {
-//                            oGPSinfo.EastLong = "1";
-//                            oGPSinfo.WestLong = "0";
+//                            oGPSInfoEntity.EastLong = "1";
+//                            oGPSInfoEntity.WestLong = "0";
 //                        }
 //
-//                        oGPSinfo.ISGPSLocated = String.valueOf(iTemp[3]);
-//                        oGPSinfo.ISGPSReal = String.valueOf(iTemp[4]);
-//                        oGPSinfo.Course = String.valueOf(iTemp[0]);
-//                        oProtocol_18N19N22N26.oGPSinfo = oGPSinfo;
+//                        oGPSInfoEntity.ISGPSLocated = String.valueOf(iTemp[3]);
+//                        oGPSInfoEntity.ISGPSReal = String.valueOf(iTemp[4]);
+//                        oGPSInfoEntity.Course = String.valueOf(iTemp[0]);
+//                        oProtocol_18N19N22N26.oGPSInfoEntity = oGPSInfoEntity;
 //
 //                        if(Util.getTimeDiffInSeconds(currentDateTime,oProtocol_18N19N22N26.DateTime) >=60){
 //                                currentDateTime = oProtocol_18N19N22N26.DateTime;
 //                        }
 //                        oTransaction.InsertGPSinfo(oProtocol_18N19N22N26);
 //
-//                        System.out.println("Protocol 18  Client "+ this.clientNumber +" DateTime "+ oProtocol_18N19N22N26.DateTime +" - Lat " + oGPSinfo.Lat + " Long " + oGPSinfo.Long + " Speed " + oGPSinfo.Speed + " IMEINo " + this.IMEINumber);
+//                        System.out.println("Protocol 18  Client "+ this.clientNumber +" DateTime "+ oProtocol_18N19N22N26.DateTime +" - Lat " + oGPSInfoEntity.Lat + " Long " + oGPSInfoEntity.Long + " Speed " + oGPSInfoEntity.Speed + " IMEINo " + this.IMEINumber);
 //                        iCounterStatusInfo = 0;
 //                        iCounterGPSInfo++;
 //                        if(iCounterGPSInfo>10)
 //                        {
 //                                System.out.println("<><> Error Log written");
-//                                // ErrorLog el = new ErrorLog();
+//                                // ErrorLogEntity el = new ErrorLogEntity();
 //                                // el.IMEINo = this.IMEINumber;
 //                                // el.DateTime = oProtocol_18N19N22N26.DateTime;
 //                                // el.Note = "GPSInfo";
@@ -218,8 +218,8 @@
 //
 //                    if ((int)(bytes[3]) == 19 )
 //                    {
-//                        oProtocol_18N19N22N26 = new Protocol_18N19N22N26();
-//                        Statusinfo oStatusinfo = new Statusinfo();
+//                        oProtocol_18N19N22N26 = new Protocol18N19N22N26Entity();
+//                        GPSStatusInfoEntity oStatusInfoEntity = new GPSStatusInfoEntity();
 //
 //                        oProtocol_18N19N22N26.IMEINo = this.IMEINumber;
 //                        String[] sDevInfo = Util.GetDeviceInfo(bytes[4]);
@@ -231,55 +231,55 @@
 //                                sBinary = "0".concat(sBinary);
 //
 //
-//                        oStatusinfo.OilConnected = sBinary.substring(1,2);
-//                        oStatusinfo.GPSTrackingOn = sBinary.substring(2,3);
+//                        oStatusInfoEntity.OilConnected = sBinary.substring(1,2);
+//                        oStatusInfoEntity.GPSTrackingOn = sBinary.substring(2,3);
 //                        if(sBinary.substring(3,6).equalsIgnoreCase("100"))
-//                            oStatusinfo.SOSAlarm = "1";
+//                            oStatusInfoEntity.SOSAlarm = "1";
 //                        else
-//                            oStatusinfo.SOSAlarm = "0";
+//                            oStatusInfoEntity.SOSAlarm = "0";
 //
 //                        if(sBinary.substring(3,6).equalsIgnoreCase("011"))
-//                            oStatusinfo.LowBatteryAlarm = "1";
+//                            oStatusInfoEntity.LowBatteryAlarm = "1";
 //                        else
-//                            oStatusinfo.LowBatteryAlarm = "0";
+//                            oStatusInfoEntity.LowBatteryAlarm = "0";
 //
 //                        if(sBinary.substring(3,6).equalsIgnoreCase("010"))
-//                            oStatusinfo.PowerCutAlarm = "1";
+//                            oStatusInfoEntity.PowerCutAlarm = "1";
 //                        else
-//                            oStatusinfo.PowerCutAlarm = "0";
+//                            oStatusInfoEntity.PowerCutAlarm = "0";
 //
 //                        if(sBinary.substring(3,6).equalsIgnoreCase("001"))
-//                            oStatusinfo.ShockAlarm = "1";
+//                            oStatusInfoEntity.ShockAlarm = "1";
 //                        else
-//                            oStatusinfo.ShockAlarm = "0";
+//                            oStatusInfoEntity.ShockAlarm = "0";
 //
 //                        if(sBinary.substring(3,6).equalsIgnoreCase("000"))
-//                            oStatusinfo.Normal = "1";
+//                            oStatusInfoEntity.Normal = "1";
 //                        else
-//                            oStatusinfo.Normal = "0";
+//                            oStatusInfoEntity.Normal = "0";
 //
-//                        oStatusinfo.ChargeOn = sBinary.substring(6,7);
-//                        oStatusinfo.AccHigh = sBinary.substring(7,8);
-//                        oStatusinfo.IsActivated = sBinary.substring(8,9);
+//                        oStatusInfoEntity.ChargeOn = sBinary.substring(6,7);
+//                        oStatusInfoEntity.AccHigh = sBinary.substring(7,8);
+//                        oStatusInfoEntity.IsActivated = sBinary.substring(8,9);
 //
 //
-//                        oStatusinfo.Voltage = Util.ByteToString(bytes, 5, 5);
-//                        oStatusinfo.GSMSignalStrength = Util.ByteToString(bytes, 6, 6);
+//                        oStatusInfoEntity.Voltage = Util.ByteToString(bytes, 5, 5);
+//                        oStatusInfoEntity.GSMSignalStrength = Util.ByteToString(bytes, 6, 6);
 //                                                    Calendar oCal = Calendar.getInstance();
-//                                                    oStatusinfo.DateTimeMilliseconds = String.valueOf(oCal.getTimeInMillis());
+//                                                    oStatusInfoEntity.DateTimeMilliseconds = String.valueOf(oCal.getTimeInMillis());
 //                        oProtocol_18N19N22N26.Lang = Util.ByteToString(bytes, 7, 8);
-//                        oProtocol_18N19N22N26.oStatusinfo = oStatusinfo;
+//                        oProtocol_18N19N22N26.oStatusInfoEntity = oStatusInfoEntity;
 //                        System.out.println("Protocol 19 " + this.IMEINumber);
 //                        oTransaction.InsertStatusinfo(oProtocol_18N19N22N26);
 //                        iCounterGPSInfo=0;
 //                        iCounterStatusInfo++;
 //                        if(iCounterStatusInfo>5){
 //                            System.out.println("<><> Error Log written inside Status Info");
-//                            ErrorLog el = new ErrorLog();
+//                            ErrorLogEntity el = new ErrorLogEntity();
 //                            el.IMEINo = this.IMEINumber;
 //                            String curdate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 //                            el.DateTime = curdate;
-//                            el.Note = "StatusInfo";
+//                            el.Note = "GPSStatusInfoEntity";
 //                            oTransaction.InsertErrorLog(el);
 //                            iCounterStatusInfo=0;
 //                            el = null;
@@ -317,7 +317,7 @@
 //        }
 //        catch(Exception e)
 //        {
-//            ErrorLog el = new ErrorLog();
+//            ErrorLogEntity el = new ErrorLogEntity();
 //            el.IMEINo = this.IMEINumber;
 //            el.DateTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 //            el.Note = e.toString();
@@ -775,7 +775,7 @@
 //
 //
 //
-//class GPSinfo
+//class GPSInfoEntity
 //{
 //        public String NoSatellite;
 //        public String GGpsInfo;
@@ -799,7 +799,7 @@
 //    public String CI;
 //}
 //
-//class Statusinfo
+//class GPSStatusInfoEntity
 //{
 //    public String IsActivated;
 //    public String AccHigh;
@@ -818,11 +818,11 @@
 //    public String DateTimeMilliseconds;
 //}
 //
-//class Protocol_18N19N22N26
+//class Protocol18N19N22N26Entity
 //{
-//    public GPSinfo oGPSinfo;
+//    public GPSInfoEntity oGPSInfoEntity;
 //    public LBSinfo oLBSinfo;
-//    public Statusinfo oStatusinfo;
+//    public GPSStatusInfoEntity oStatusInfoEntity;
 //    public String IMEINo;
 //    public String DateTime;
 //    public String LBSLenth;
@@ -830,7 +830,7 @@
 //    public String Lang;
 //}
 //
-//class ErrorLog
+//class ErrorLogEntity
 //{
 //        public String DateTime;
 //        public String IMEINo;
@@ -885,7 +885,7 @@
 //        mongoClient.close();
 //    }
 //
-//    public void InsertErrorLog(ErrorLog errorlog) {
+//    public void InsertErrorLog(ErrorLogEntity errorlog) {
 //        String collectionName = "gps_error_logs";
 //        MongoCollection<Document> collection = database.getCollection(collectionName);
 //        errorlog.DateTime = Util.GMTtoISTDate(errorlog.DateTime);
@@ -896,7 +896,7 @@
 //        collection.insertOne(document);
 //    }
 //
-//    public void InsertGPSinfo(Protocol_18N19N22N26 oprotocol)
+//    public void InsertGPSinfo(Protocol18N19N22N26Entity oprotocol)
 //    {
 //        try
 //        {
@@ -911,18 +911,18 @@
 //                Document document = new Document("IMEINo", oprotocol.IMEINo)
 //                    .append("DateTime", oprotocol.DateTime)
 //                    .append("vehicleName", "MH01AR9931")
-//                    .append("NoSatellite", oprotocol.oGPSinfo.NoSatellite)
-//                    .append("GGpsInfo", oprotocol.oGPSinfo.GGpsInfo)
-//                    .append("Lat", oprotocol.oGPSinfo.Lat)
-//                    .append("Long", oprotocol.oGPSinfo.Long)
-//                    .append("Speed", oprotocol.oGPSinfo.Speed)
-//                    .append("Course", oprotocol.oGPSinfo.Course)
-//                    .append("SouthLat", oprotocol.oGPSinfo.SouthLat)
-//                    .append("NorthLat", oprotocol.oGPSinfo.NorthLat)
-//                    .append("EastLong", oprotocol.oGPSinfo.EastLong)
-//                    .append("WestLong", oprotocol.oGPSinfo.WestLong)
-//                    .append("ISGPSLocated", oprotocol.oGPSinfo.ISGPSLocated)
-//                    .append("ISGPSReal", oprotocol.oGPSinfo.ISGPSReal);
+//                    .append("NoSatellite", oprotocol.oGPSInfoEntity.NoSatellite)
+//                    .append("GGpsInfo", oprotocol.oGPSInfoEntity.GGpsInfo)
+//                    .append("Lat", oprotocol.oGPSInfoEntity.Lat)
+//                    .append("Long", oprotocol.oGPSInfoEntity.Long)
+//                    .append("Speed", oprotocol.oGPSInfoEntity.Speed)
+//                    .append("Course", oprotocol.oGPSInfoEntity.Course)
+//                    .append("SouthLat", oprotocol.oGPSInfoEntity.SouthLat)
+//                    .append("NorthLat", oprotocol.oGPSInfoEntity.NorthLat)
+//                    .append("EastLong", oprotocol.oGPSInfoEntity.EastLong)
+//                    .append("WestLong", oprotocol.oGPSInfoEntity.WestLong)
+//                    .append("ISGPSLocated", oprotocol.oGPSInfoEntity.ISGPSLocated)
+//                    .append("ISGPSReal", oprotocol.oGPSInfoEntity.ISGPSReal);
 //
 //                // Insert the document
 //                collection.insertOne(document);
@@ -930,18 +930,18 @@
 //                // Create a new document
 //                Document document = new Document("IMEINo", oprotocol.IMEINo)
 //                    .append("DateTime", oprotocol.DateTime)
-//                    .append("NoSatellite", oprotocol.oGPSinfo.NoSatellite)
-//                    .append("GGpsInfo", oprotocol.oGPSinfo.GGpsInfo)
-//                    .append("Lat", oprotocol.oGPSinfo.Lat)
-//                    .append("Long", oprotocol.oGPSinfo.Long)
-//                    .append("Speed", oprotocol.oGPSinfo.Speed)
-//                    .append("Course", oprotocol.oGPSinfo.Course)
-//                    .append("SouthLat", oprotocol.oGPSinfo.SouthLat)
-//                    .append("NorthLat", oprotocol.oGPSinfo.NorthLat)
-//                    .append("EastLong", oprotocol.oGPSinfo.EastLong)
-//                    .append("WestLong", oprotocol.oGPSinfo.WestLong)
-//                    .append("ISGPSLocated", oprotocol.oGPSinfo.ISGPSLocated)
-//                    .append("ISGPSReal", oprotocol.oGPSinfo.ISGPSReal);
+//                    .append("NoSatellite", oprotocol.oGPSInfoEntity.NoSatellite)
+//                    .append("GGpsInfo", oprotocol.oGPSInfoEntity.GGpsInfo)
+//                    .append("Lat", oprotocol.oGPSInfoEntity.Lat)
+//                    .append("Long", oprotocol.oGPSInfoEntity.Long)
+//                    .append("Speed", oprotocol.oGPSInfoEntity.Speed)
+//                    .append("Course", oprotocol.oGPSInfoEntity.Course)
+//                    .append("SouthLat", oprotocol.oGPSInfoEntity.SouthLat)
+//                    .append("NorthLat", oprotocol.oGPSInfoEntity.NorthLat)
+//                    .append("EastLong", oprotocol.oGPSInfoEntity.EastLong)
+//                    .append("WestLong", oprotocol.oGPSInfoEntity.WestLong)
+//                    .append("ISGPSLocated", oprotocol.oGPSInfoEntity.ISGPSLocated)
+//                    .append("ISGPSReal", oprotocol.oGPSInfoEntity.ISGPSReal);
 //
 //                // Insert the document
 //                collection.insertOne(document);
@@ -949,7 +949,7 @@
 //        }
 //        catch (Exception e1)
 //        {
-//            ErrorLog eL = new ErrorLog();
+//            ErrorLogEntity eL = new ErrorLogEntity();
 //            eL.IMEINo = oprotocol.IMEINo;
 //            oprotocol.DateTime = Util.GMTtoISTDate(oprotocol.DateTime);
 //            eL.DateTime = oprotocol.DateTime;
@@ -963,7 +963,7 @@
 //        }
 //    }
 //
-//    public void InsertStatusinfo(Protocol_18N19N22N26 oprotocol)
+//    public void InsertStatusinfo(Protocol18N19N22N26Entity oprotocol)
 //    {
 //        // try
 //        // {
@@ -984,20 +984,20 @@
 //
 //        //     // Create a new document
 //        //     Document document = new Document("IMEINo", oprotocol.IMEINo)
-//        //         .append("DateTime", oprotocol.oStatusinfo.DateTimeMilliseconds)
-//        //         .append("IsActivated", oprotocol.oStatusinfo.IsActivated)
-//        //         .append("AccHigh", oprotocol.oStatusinfo.AccHigh)
-//        //         .append("ChargeOn", oprotocol.oStatusinfo.ChargeOn)
-//        //         .append("SOSAlarm", oprotocol.oStatusinfo.LowBatteryAlarm)
-//        //         .append("PowerCutAlarm", oprotocol.oStatusinfo.PowerCutAlarm)
-//        //         .append("ShockAlarm", oprotocol.oStatusinfo.ShockAlarm)
-//        //         .append("Normal", oprotocol.oStatusinfo.Normal)
-//        //         .append("GPSTrackingOn", oprotocol.oStatusinfo.GPSTrackingOn)
-//        //         .append("OilConnected", oprotocol.oStatusinfo.OilConnected)
-//        //         .append("ISGPSLocated", oprotocol.oStatusinfo.ISGPSLocated)
-//        //         .append("ISGPSReal", oprotocol.oStatusinfo.ISGPSReal)
-//        //         .append("Voltage", oprotocol.oStatusinfo.Voltage)
-//        //         .append("GSMSignalStrength", oprotocol.oStatusinfo.GSMSignalStrength);
+//        //         .append("DateTime", oprotocol.oStatusInfoEntity.DateTimeMilliseconds)
+//        //         .append("IsActivated", oprotocol.oStatusInfoEntity.IsActivated)
+//        //         .append("AccHigh", oprotocol.oStatusInfoEntity.AccHigh)
+//        //         .append("ChargeOn", oprotocol.oStatusInfoEntity.ChargeOn)
+//        //         .append("SOSAlarm", oprotocol.oStatusInfoEntity.LowBatteryAlarm)
+//        //         .append("PowerCutAlarm", oprotocol.oStatusInfoEntity.PowerCutAlarm)
+//        //         .append("ShockAlarm", oprotocol.oStatusInfoEntity.ShockAlarm)
+//        //         .append("Normal", oprotocol.oStatusInfoEntity.Normal)
+//        //         .append("GPSTrackingOn", oprotocol.oStatusInfoEntity.GPSTrackingOn)
+//        //         .append("OilConnected", oprotocol.oStatusInfoEntity.OilConnected)
+//        //         .append("ISGPSLocated", oprotocol.oStatusInfoEntity.ISGPSLocated)
+//        //         .append("ISGPSReal", oprotocol.oStatusInfoEntity.ISGPSReal)
+//        //         .append("Voltage", oprotocol.oStatusInfoEntity.Voltage)
+//        //         .append("GSMSignalStrength", oprotocol.oStatusInfoEntity.GSMSignalStrength);
 //
 //        //     // Insert the document
 //        //     collection.insertOne(document);
@@ -1007,9 +1007,9 @@
 //        // }
 //        // catch (Exception e1)
 //        // {
-//        //         ErrorLog eL = new ErrorLog();
+//        //         ErrorLogEntity eL = new ErrorLogEntity();
 //        //         eL.IMEINo = oprotocol.IMEINo;
-//        //         eL.DateTime = oprotocol.oStatusinfo.DateTimeMilliseconds;
+//        //         eL.DateTime = oprotocol.oStatusInfoEntity.DateTimeMilliseconds;
 //        //         eL.Note = e1.toString();
 //        //         Transaction oTransaction = new Transaction();
 //        //         oTransaction.InsertErrorLog(eL);

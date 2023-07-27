@@ -1,6 +1,20 @@
 package com.gpsstreaming.model;
 
-public class Statusinfo {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Document(collection = "GPS_STATUS_DATA")
+public class GPSStatusInfoEntity implements Serializable {
+    public String IMEINo;
     public String IsActivated;
     public String AccHigh;
     public String ChargeOn;

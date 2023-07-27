@@ -1,8 +1,10 @@
 package com.gpsstreaming.model;
 
-public class LBSinfo {
-    public String MCC;
-    public String MNC;
-    public String LAC;
-    public String CI;
+import java.io.Serializable;
+
+public class LBSinfo implements Serializable {
+    private String MCC;
+    private String MNC;
+    private String LAC;
+    private String CI;
 }

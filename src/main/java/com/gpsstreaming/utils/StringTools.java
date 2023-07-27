@@ -49,7 +49,7 @@ public class StringTools {
 
         /* format and return hex value */
         int nybbleLen = ((bitLen + 7) / 8) * 2;
-        StringBuffer hex = new StringBuffer(Long.toHexString(val).toUpperCase());
+        var hex = new StringBuffer(Long.toHexString(val).toUpperCase());
         //Print.logInfo("NybbleLen: " + nybbleLen + " : " + hex + " [" + hex.length());
         if ((nybbleLen <= 16) && (nybbleLen > hex.length())) {
             String mask = "0000000000000000"; // 64 bit (16 nybbles)
@@ -65,8 +65,8 @@ public class StringTools {
         if (data != null) {
 
             /* get data string */
-            String d = data.toUpperCase();
-            String s = d.startsWith("0X")? d.substring(2) : d;
+            var d = data.toUpperCase();
+            var s = d.startsWith("0X")? d.substring(2) : d;
 
             /* remove any invalid trailing characters */
             // scan until we find an invalid character (or the end of the string)
